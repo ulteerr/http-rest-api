@@ -1,6 +1,6 @@
 package apiserver
 
-import "http-rest-api/internal/app/store"
+import "github.com/ulteerr/http-rest-api/internal/app/store"
 
 type Config struct {
 	BindAddr string `toml:"bind_addr"`

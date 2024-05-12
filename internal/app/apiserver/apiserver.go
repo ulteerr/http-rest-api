@@ -1,9 +1,10 @@
 package apiserver
 
 import (
-	"http-rest-api/internal/app/store"
 	"io"
 	"net/http"
+
+	"github.com/ulteerr/http-rest-api/internal/app/store"
 
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"

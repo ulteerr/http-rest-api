@@ -1,12 +1,18 @@
 package store
 
-import "http-rest-api/internal/app/model"
+import "github.com/ulteerr/http-rest-api/internal/app/model"
 
 type UserRepository struct {
 	store *Store
 }
 
 func (r *UserRepository) Create(u *model.User) (*model.User, error) {
+	if err := u.Validate(); err != nil {
+		return nil, err
+	}
+	if err := u.BeforeCreate(); err != nil {
+		return nil, err
+	}
 	_, err := r.store.db.Exec(
 		"INSERT INTO users (email, encrypted_password) VALUES (?, ?)",
 		u.Email,
