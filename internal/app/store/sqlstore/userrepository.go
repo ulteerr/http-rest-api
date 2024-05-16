@@ -18,7 +18,7 @@ func (r *UserRepository) Create(u *model.User) error {
 	if err := u.BeforeCreate(); err != nil {
 		return err
 	}
-	_, err := r.store.db.Exec(
+	result, err := r.store.db.Exec(
 		"INSERT INTO users (email, encrypted_password) VALUES (?, ?)",
 		u.Email,
 		u.EncryptedPassword,
@@ -26,6 +26,12 @@ func (r *UserRepository) Create(u *model.User) error {
 	if err != nil {
 		return err
 	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return err
+	}
+	u.ID = int(id)
 
 	return nil
 }
